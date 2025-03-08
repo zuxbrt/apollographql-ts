@@ -1,0 +1,61 @@
+type Listing {
+    id: ID!
+    "The listing's title"
+    title: String!
+    "The listing's description"
+    description: String!
+    "The number of beds available"
+    numOfBeds: Int!
+    "The cost per night"
+    costPerNight: Float!
+    "Indicates whether listing is closed for bookings (on hiatus)"
+    closedForBookings: Boolean
+    "Amenities available for this listing"
+    amenities: [Amenity!]!
+}
+
+type Amenity {
+    id: ID!
+    "Category it belongs to"
+    category: String!
+    "It's name"
+    name: String!
+}
+
+type Query {
+    "List of available listings"
+    featuredListings: [Listing!]!
+    "Single listing"
+    listing(id: ID!): Listing
+}
+
+type Mutation {
+    "Creates a new listing"
+    createListing(input: CreateListingInput!): CreateListingsResponse!
+}
+
+type CreateListingsResponse {
+    "status code"
+    code: Int!
+    "success/fail"
+    success: Boolean!
+    "message with information"
+    message: String!
+    "created listing"
+    listing: Listing
+}
+
+input CreateListingInput {
+    "listing title"
+    title: String!
+    "listing description"
+    description: String!
+    "beds available"
+    numOfBeds: Int!
+    "cost per night"
+    costPerNight: Float!
+    "is available for bookings"
+    closedForBookings: Boolean
+    "listing amenities"
+    amenities: [ID!]!
+}

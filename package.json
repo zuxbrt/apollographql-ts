@@ -1,12 +1,12 @@
 {
-  "name": "Intro to GraphQL with TypeScript",
+  "name": "apollographql-ts",
   "private": true,
-  "description": "The starter code for the Odyssey Intro to GraphQL with TypeScript course",
+  "description": "API made with ApolloServer, GraphQL and TypeScript",
   "version": "0.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/apollographql-education/intro-typescript"
+    "url": "https://github.com/zuxbrt/apollographql-ts.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,14 +15,22 @@
   },
   "scripts": {
     "compile": "tsc",
-    "dev": "ts-node-dev --respawn ./src/index.ts",
+    "dev": "concurrently \"ts-node-dev --respawn --watch ./**/*.graphql ./src/index.ts\" \"npm run generate\"",
     "start": "npm run compile && nodemon ./dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "generate": "graphql-codegen --watch \"src/schema.graphql\""
   },
   "dependencies": {
-    "@parcel/watcher": "^2.4.0"
+    "@apollo/datasource-rest": "^6.4.1",
+    "@apollo/server": "^4.11.3",
+    "@parcel/watcher": "^2.4.0",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/typescript": "^4.1.5",
+    "@graphql-codegen/typescript-resolvers": "^4.4.4",
     "@types/jest": "^29.0.3",
     "@types/node": "^20.0.0",
     "concurrently": "^8.2.2",
